@@ -21,10 +21,14 @@ JavaFieldPlugin 是一个可以根据字符串内容快速生成Java字段的插
 ### 根据复制的内容快速生成Java字段
 ![Image](art/quick-generate-java-field.gif)
 
+## 相关推荐
+
+#### [WordPOI](https://github.com/jenly1314/WordPOI) 一个将Word接口文档转换成JavaBean的工具库。
 
 ## 更新说明
 #### v1.0.0 ：2022-5-30
 *  JavaFieldPlugin初始版本
+
 
 ## 赞赏
 如果您喜欢JavaFieldPlugin，或感觉JavaFieldPlugin帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:<p>

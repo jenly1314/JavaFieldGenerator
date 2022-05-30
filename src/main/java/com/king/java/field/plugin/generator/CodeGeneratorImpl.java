@@ -135,9 +135,8 @@ public class CodeGeneratorImpl implements ICodeGenerator {
                 if (StringUtils.isNotBlank(stringArr[0])) {
                     fieldProperty.setComment(fieldProperty.getComment() + "\n" + stringArr[0].trim());
                 }
-                // 多行注释，复制过来会带引号，去掉它们
             } else {
-                //如果连字段或字段类型都没有，则直接跳过
+                // 如果连字段或字段类型都没有，则直接跳过
                 if (filedParseConfig.getFieldColumn() >= length || filedParseConfig.getFieldTypeColumn() >= length) {
                     continue;
                 }

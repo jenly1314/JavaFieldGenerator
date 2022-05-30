@@ -86,7 +86,7 @@ public class GenerateFieldDialog extends JDialog {
     public GenerateFieldDialog() {
         setContentPane(panel);
         setModal(true);
-        setTitle("Java Bean Plugin");
+        setTitle("Java Field Plugin");
         fieldParseConfig = ConfigComponent.getInstance().getFieldParseConfig();
         modifier = ofValue(fieldParseConfig.getFieldModifier());
         switch (modifier) {

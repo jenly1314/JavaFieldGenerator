@@ -1,18 +1,25 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>org.jetbrains.plugins.template</id>
-    <name>Template</name>
-    <vendor>JetBrains</vendor>
+    <id>com.king.java.field.plugin</id>
+    <name>JavaFieldPlugin</name>
+    <vendor email="jenly1314@gmail.com" url="https://www.github.com/jenly1314">Jenly</vendor>
+    <description>JavaFieldPlugin This is a plugin you can generate Java field from String.</description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+
+
+    <actions>
+        <action id="GenerateJavaField" class="com.king.java.field.plugin.action.GenerateFieldAction" text="Java Field" description="Generate Java Field">
+            <add-to-group group-id="GenerateGroup" />
+        </action>
+        <action id="QuickGenerateJavaField" class="com.king.java.field.plugin.action.QuickGenerateFieldAction" text="Quick Generate Java Field" description="Quick Generate Java Field">
+            <add-to-group group-id="EditorPopupMenu" anchor="last" />
+        </action>
+    </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="org.jetbrains.plugins.template.services.MyApplicationService"/>
-        <projectService serviceImplementation="org.jetbrains.plugins.template.services.MyProjectService"/>
+        <applicationService serviceImplementation="com.king.java.field.plugin.component.ConfigComponent"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="org.jetbrains.plugins.template.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>

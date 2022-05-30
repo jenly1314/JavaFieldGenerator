@@ -11,8 +11,8 @@ JavaFieldPlugin This is a plugin you can generate Java field from String.
 
 JavaFieldPlugin 是一个可以根据字符串内容快速生成Java字段的插件。
 
-    在日常开发的过程中，常常会根据接口文档去定义一些JavaBean，而接口文档的请求和响应相关信息，在大部分情况下都是使用表格的形式列出相关的字段信息，每次无脑式的对着文档的字段信息去定义对应的JavaBean就略显无聊。
-    如果这时，我们安装了 **JavaFieldPlugin** 插件，就可以快速根据定义的字段信息来生成Java对象中的字段信息。
+> 在日常开发的过程中，常常会根据接口文档去定义一些JavaBean，而接口文档的请求和响应相关信息，在大部分情况下都是使用表格的形式列出相关的字段信息，每次无脑式的对着文档的字段信息去定义对应的JavaBean就略显无聊。
+> 如果这时我们使用了 **JavaFieldPlugin** 插件，就可以快速根据定义的字段信息来生成Java对象中的字段信息。
 
 ## 示例
 ### 根据输入的内容生成Java字段

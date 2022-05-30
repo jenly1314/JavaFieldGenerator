@@ -142,7 +142,7 @@ public class GenerateFieldDialog extends JDialog {
                 }
                 dispose();
             } else {
-                Messages.showMessageDialog("Project can not be null!", "Error", Messages.getInformationIcon());
+                Messages.showMessageDialog("Text can not be null!", "Error", Messages.getInformationIcon());
             }
 
         });

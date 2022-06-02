@@ -5,6 +5,8 @@
 [![Blog](https://img.shields.io/badge/blog-Jenly-9933CC.svg)](https://jenly1314.github.io/)
 [![QQGroup](https://img.shields.io/badge/QQGroup-20867961-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1411582c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad)
 
+![Logo](logo.png)
+
 <!-- Plugin description -->
 JavaFieldGenerator This is a plugin you can generate Java field from String.
 <!-- Plugin description end -->

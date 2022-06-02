@@ -15,10 +15,8 @@
  */
 package com.king.java.field.plugin.component;
 
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.components.*;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.king.java.field.plugin.entity.FieldParseConfig;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +31,7 @@ public class ConfigComponent implements PersistentStateComponent<ConfigComponent
     private FieldParseConfig fieldParseConfig;
 
     public static ConfigComponent getInstance() {
-        return ServiceManager.getService(ConfigComponent.class);
+        return ApplicationManager.getApplication().getService(ConfigComponent.class);
     }
 
     @Override

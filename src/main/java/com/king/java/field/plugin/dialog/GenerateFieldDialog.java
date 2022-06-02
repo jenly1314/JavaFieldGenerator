@@ -86,7 +86,7 @@ public class GenerateFieldDialog extends JDialog {
     public GenerateFieldDialog() {
         setContentPane(panel);
         setModal(true);
-        setTitle("Java Field Plugin");
+        setTitle("Java Field");
         fieldParseConfig = ConfigComponent.getInstance().getFieldParseConfig();
         modifier = ofValue(fieldParseConfig.getFieldModifier());
         switch (modifier) {
@@ -106,11 +106,25 @@ public class GenerateFieldDialog extends JDialog {
         cbGetAndSet.setSelected(fieldParseConfig.isGenerateGetterAndSetter());
         cbToString.setSelected(fieldParseConfig.isGenerateToString());
 
+
+        spField.addChangeListener(l -> {
+            fieldParseConfig.setFieldColumn((int) spField.getValue());
+        });
+
+        spFieldType.addChangeListener(l -> {
+            fieldParseConfig.setFieldTypeColumn((int) spFieldType.getValue());
+        });
+
+        spFieldComment.addChangeListener(l -> {
+            fieldParseConfig.setFieldCommentColumn((int) spFieldComment.getValue());
+        });
+
         rbPublic.addChangeListener(l -> {
             if (rbPublic.isSelected()) {
                 modifier = PUBLIC;
                 rbProtected.setSelected(false);
                 rbPrivate.setSelected(false);
+                fieldParseConfig.setFieldModifier(modifier.getValue());
             }
         });
         rbProtected.addChangeListener(l -> {
@@ -118,6 +132,7 @@ public class GenerateFieldDialog extends JDialog {
                 modifier = PROTECTED;
                 rbPublic.setSelected(false);
                 rbPrivate.setSelected(false);
+                fieldParseConfig.setFieldModifier(modifier.getValue());
             }
         });
         rbPrivate.addChangeListener(l -> {
@@ -125,19 +140,20 @@ public class GenerateFieldDialog extends JDialog {
                 modifier = PRIVATE;
                 rbPublic.setSelected(false);
                 rbProtected.setSelected(false);
+                fieldParseConfig.setFieldModifier(modifier.getValue());
             }
+        });
+
+        cbGetAndSet.addChangeListener(l -> {
+            fieldParseConfig.setGenerateGetterAndSetter(cbGetAndSet.isSelected());
+        });
+        cbToString.addChangeListener(l -> {
+            fieldParseConfig.setGenerateToString(cbToString.isSelected());
         });
 
         btnGenerate.addActionListener(l -> {
             if (StringUtils.isNotBlank(textArea.getText())) {
                 if (onClickListener != null) {
-                    fieldParseConfig.setFieldColumn((int) spField.getValue());
-                    fieldParseConfig.setFieldTypeColumn((int) spFieldType.getValue());
-                    fieldParseConfig.setFieldCommentColumn((int) spFieldComment.getValue());
-                    fieldParseConfig.setFieldModifier(modifier.getValue());
-                    fieldParseConfig.setGenerateGetterAndSetter(cbGetAndSet.isSelected());
-                    fieldParseConfig.setGenerateToString(cbToString.isSelected());
-                    ConfigComponent.getInstance().setFieldParseConfig(fieldParseConfig);
                     onClickListener.onGenerate(fieldParseConfig, textArea.getText());
                 }
                 dispose();

@@ -1,9 +1,9 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.king.java.field.plugin</id>
-    <name>JavaFieldPlugin</name>
+    <name>JavaFieldGenerator</name>
     <vendor email="jenly1314@gmail.com" url="https://www.github.com/jenly1314">Jenly</vendor>
-    <description>JavaFieldPlugin This is a plugin you can generate Java field from String.</description>
+    <description>JavaFieldGenerator This is a plugin you can generate Java field from String.</description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
@@ -14,7 +14,7 @@
         <action id="GenerateJavaField" class="com.king.java.field.plugin.action.GenerateFieldAction" text="Java Field" description="Generate Java Field">
             <add-to-group group-id="GenerateGroup" />
         </action>
-        <action id="QuickGenerateJavaField" class="com.king.java.field.plugin.action.QuickGenerateFieldAction" text="Quick Generate Java Field" description="Quick Generate Java Field">
+        <action id="QuickGenerateJavaField" icon="/icons/ic_logo.png" class="com.king.java.field.plugin.action.QuickGenerateFieldAction" text="Quick Generate Java Field" description="Quick Generate Java Field">
             <add-to-group group-id="EditorPopupMenu" anchor="last" />
         </action>
     </actions>

@@ -1,1 +1,1 @@
-rootProject.name = "java-field-plugin"
+rootProject.name = "JavaFieldGenerator"

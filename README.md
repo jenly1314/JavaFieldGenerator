@@ -1,18 +1,18 @@
-# Java Field Plugin
+# JavaFieldGenerator
 
-[![Download](https://img.shields.io/badge/download-plugin-blue.svg)](https://raw.githubusercontent.com/jenly1314/java-field-plugin/master/release/Java-Field-Plugin-1.0.0.zip)
+[![Download](https://img.shields.io/badge/download-plugin-blue.svg)](https://raw.githubusercontent.com/jenly1314/JavaFieldGenerator/master/release/JavaFieldGenerator-1.0.0.zip)
 [![License](https://img.shields.io/badge/license-Apche%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Blog](https://img.shields.io/badge/blog-Jenly-9933CC.svg)](https://jenly1314.github.io/)
 [![QQGroup](https://img.shields.io/badge/QQGroup-20867961-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1411582c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad)
 
 <!-- Plugin description -->
-JavaFieldPlugin This is a plugin you can generate Java field from String.
+JavaFieldGenerator This is a plugin you can generate Java field from String.
 <!-- Plugin description end -->
 
-JavaFieldPlugin 是一个可以根据字符串内容快速生成Java字段的插件。
+JavaFieldGenerator 是一个可以根据字符串内容快速生成Java字段的插件。
 
 > 在日常开发的过程中，常常会根据接口文档去定义一些JavaBean，而接口文档的请求和响应相关信息，在大部分情况下都是使用表格的形式列出相关的字段信息，每次无脑式的对着文档的字段信息去定义对应的JavaBean就略显无聊。
-> 如果这时我们使用了 **JavaFieldPlugin** 插件，就可以快速根据定义的字段信息来生成Java对象中的字段信息。
+> 如果这时我们使用了 **JavaFieldGenerator** 插件，就可以快速根据定义的字段信息来生成Java对象中的字段信息。
 
 ## 示例
 ### 根据输入的内容生成Java字段
@@ -27,11 +27,11 @@ JavaFieldPlugin 是一个可以根据字符串内容快速生成Java字段的插
 
 ## 更新说明
 #### v1.0.0 ：2022-5-30
-*  JavaFieldPlugin初始版本
+*  JavaFieldGenerator初始版本
 
 
 ## 赞赏
-如果您喜欢JavaFieldPlugin，或感觉JavaFieldPlugin帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:<p>
+如果您喜欢JavaFieldGenerator，或感觉JavaFieldGenerator帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:<p>
 您也可以扫描下面的二维码，请作者喝杯咖啡 :coffee:
     <div>
         <img src="https://jenly1314.github.io/image/pay/wxpay.png" width="280" heght="350">

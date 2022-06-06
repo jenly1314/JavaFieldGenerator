@@ -16,6 +16,11 @@ JavaFieldGenerator 是一个可以根据字符串内容快速生成Java字段的
 > 在日常开发的过程中，常常会根据接口文档去定义一些JavaBean，而接口文档的请求和响应相关信息，在大部分情况下都是使用表格的形式列出相关的字段信息，每次无脑式的对着文档的字段信息去定义对应的JavaBean就略显无聊。
 > 如果这时我们使用了 **JavaFieldGenerator** 插件，就可以快速根据定义的字段信息来生成Java对象中的字段信息。
 
+## 主要功能
+* 快速生成 **Java** 字段
+* 快速生成 **Getter** 和 **Setter** 方法
+* 快速生成 **toString** 方法
+
 ## 示例
 ### 根据输入的内容生成Java字段
 ![Image](art/generate-java-field.gif)

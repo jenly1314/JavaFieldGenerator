@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Jenly Yu
+ * Copyright (C) 2020 Jenly Yu, https://github.com/jenly1314/JavaFieldGenerator
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package com.king.java.field.plugin.dialog;
 
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.wm.WindowManager;
 import com.king.java.field.plugin.component.ConfigComponent;
 import com.king.java.field.plugin.entity.FieldParseConfig;
 import org.apache.commons.lang.StringUtils;
@@ -34,7 +35,7 @@ public class GenerateFieldDialog extends JDialog {
 
     private JPanel panel;
     private JTextArea textArea;
-    private JButton btnCancel, btnGenerate;
+    private JButton btnCancel, btnGenerate, btnSetting;
     private OnClickListener onClickListener;
     private JRadioButton rbPublic, rbProtected, rbPrivate;
     private JCheckBox cbGetAndSet;
@@ -87,6 +88,9 @@ public class GenerateFieldDialog extends JDialog {
         setContentPane(panel);
         setModal(true);
         setTitle("Java Field");
+
+        getRootPane().setDefaultButton(btnGenerate);
+
         fieldParseConfig = ConfigComponent.getInstance().getFieldParseConfig();
         modifier = ofValue(fieldParseConfig.getFieldModifier());
         switch (modifier) {
@@ -167,6 +171,13 @@ public class GenerateFieldDialog extends JDialog {
                 onClickListener.onCancel();
             }
             dispose();
+        });
+        btnSetting.addActionListener(l -> {
+            SettingFieldTypeDialog settingFieldTypeDialog = new SettingFieldTypeDialog();
+            // 自动调整对话框大小
+            settingFieldTypeDialog.pack();
+            settingFieldTypeDialog.setLocationRelativeTo(this);
+            settingFieldTypeDialog.setVisible(true);
         });
 
         spField.setModel(createSpinnerNumberModel());

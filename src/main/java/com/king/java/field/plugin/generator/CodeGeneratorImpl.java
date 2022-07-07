@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Jenly Yu
+ * Copyright (C) 2020 Jenly Yu, https://github.com/jenly1314/JavaFieldGenerator
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@ import org.apache.http.util.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:yujinlin@mail.com">Jenly</a>
@@ -43,9 +45,7 @@ public class CodeGeneratorImpl implements ICodeGenerator {
         for (FieldProperty fieldProperty : fieldProperties) {
             StringBuilder sb = new StringBuilder();
             // 注释
-            if (StringUtils.isNotBlank(fieldProperty.getComment())) {
-                sb.append("/**\n\t* ").append(fieldProperty.getComment().replace("\n", "\n* ")).append("\n*/");
-            }
+            sb.append("/**\n\t* ").append(fieldProperty.getComment().replace("\n", "\n* ")).append("\n*/");
             // 字段
             sb.append(String.format("\n%s %s %s;", fieldProperty.getModifier(), fieldProperty.getType(), fieldProperty.getName()));
             PsiField psiField = factory.createFieldFromText(sb.toString(), psiClass);
@@ -124,6 +124,7 @@ public class CodeGeneratorImpl implements ICodeGenerator {
         // 首先按行分割
         String[] lines = text.split("\n");
         FieldProperty fieldProperty = null;
+        Map<String, String> filedTypeConvertMap = filedParseConfig.getFiledTypeConvertMap();
         for (String singleLine : lines) {
             if (TextUtils.isEmpty(singleLine) && fieldProperty == null) {
                 continue;
@@ -143,15 +144,74 @@ public class CodeGeneratorImpl implements ICodeGenerator {
                 fieldProperty = new FieldProperty();
                 fieldProperty.setModifier(filedParseConfig.getFieldModifier());
                 fieldProperty.setName(stringArr[filedParseConfig.getFieldColumn()].trim());
-                fieldProperty.setType(stringArr[filedParseConfig.getFieldTypeColumn()].trim());
+                fieldProperty.setType(convertFieldType(stringArr[filedParseConfig.getFieldTypeColumn()].trim(), filedTypeConvertMap, filedParseConfig.isConvertArrayToList()));
 
                 if (filedParseConfig.getFieldCommentColumn() < length) {
                     fieldProperty.setComment(stringArr[filedParseConfig.getFieldCommentColumn()].trim());
+                } else{
+                    fieldProperty.setComment("");
                 }
 
                 fieldPropertyList.add(fieldProperty);
             }
         }
         return fieldPropertyList;
+    }
+
+    /**
+     * 字段类型转换
+     * @param fieldType
+     * @param fieldTypeConvertMap
+     * @param convertArrayToList
+     * @return
+     */
+    private String convertFieldType(String fieldType, Map<String, String> fieldTypeConvertMap, boolean convertArrayToList) {
+        if(fieldType.endsWith("[][]")){
+            // 二维数组转换List： T[][] -> List<List<T>>
+            String type = fieldType.replace("[]","");
+            if (convertArrayToList) {
+                if (convertArrayToList) {
+                    return String.format(Locale.getDefault(), "List<List<%s>>", convertWrapperType(fieldTypeConvertMap.getOrDefault(type, type)));
+                }
+            }
+            return String.format(Locale.getDefault(), "%s[][]", fieldTypeConvertMap.getOrDefault(type, type));
+        }else if(fieldType.endsWith("[]")){
+            // 一维数组转换成List： T[] -> List<T>
+            String type = fieldType.replace("[]","");
+            if (convertArrayToList) {
+                return String.format(Locale.getDefault(), "List<%s>", convertWrapperType(fieldTypeConvertMap.getOrDefault(type, type)));
+            }
+            return String.format(Locale.getDefault(), "%s[]", fieldTypeConvertMap.getOrDefault(type, type));
+        }
+
+        return fieldTypeConvertMap.getOrDefault(fieldType, fieldType);
+    }
+
+    /**
+     * 转为包装类
+     * @param type
+     * @return
+     */
+    private String convertWrapperType(String type) {
+        switch (type){
+            case "byte":
+                return "Byte";
+            case "short":
+                return "Short";
+            case "int":
+                return "Integer";
+            case "float":
+                return "Float";
+            case "long":
+                return "Long";
+            case "double":
+                return "Double";
+            case "char":
+                return "Char";
+           case "boolean":
+                return "Boolean";
+            default:
+                return type;
+        }
     }
 }

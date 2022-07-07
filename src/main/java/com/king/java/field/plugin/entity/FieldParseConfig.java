@@ -16,6 +16,11 @@
 package com.king.java.field.plugin.entity;
 
 import com.king.java.field.plugin.dialog.GenerateFieldDialog;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * 字段解析配置
@@ -48,6 +53,14 @@ public class FieldParseConfig {
      * 是否生成 toString 方法
      */
     private boolean generateToString;
+    /**
+     * 字段类型转换配置；key为原始类型，value表示需要目标类型；如：key = int，value = Integer 时，则会在生成字段类型时，自动将 int 转换为 Integer
+     */
+    private Map<String,String> filedTypeConvertMap;
+    /**
+     * 是否将数组转换为列表
+     */
+    private boolean convertArrayToList = true;
 
     public int getFieldColumn() {
         return fieldColumn;
@@ -97,6 +110,32 @@ public class FieldParseConfig {
         this.generateGetterAndSetter = generateGetterAndSetter;
     }
 
+    @NotNull
+    public Map<String, String> getFiledTypeConvertMap() {
+        if(filedTypeConvertMap == null){
+            filedTypeConvertMap = new LinkedHashMap<>(16);
+            filedTypeConvertMap.put("varchar", "String");
+            filedTypeConvertMap.put("tinytext", "String");
+            filedTypeConvertMap.put("text", "String");
+            filedTypeConvertMap.put("string", "String");
+            filedTypeConvertMap.put("bool", "boolean");
+            filedTypeConvertMap.put("integer", "Integer");
+        }
+        return filedTypeConvertMap;
+    }
+
+    public void setFiledTypeConvertMap(Map<String, String> filedTypeConvertMap) {
+        this.filedTypeConvertMap = filedTypeConvertMap;
+    }
+
+    public boolean isConvertArrayToList() {
+        return convertArrayToList;
+    }
+
+    public void setConvertArrayToList(boolean convertArrayToList) {
+        this.convertArrayToList = convertArrayToList;
+    }
+
     @Override
     public String toString() {
         return "FieldParseConfig{" +
@@ -106,6 +145,8 @@ public class FieldParseConfig {
                 ", fieldModifier='" + fieldModifier + '\'' +
                 ", generateGetterAndSetter=" + generateGetterAndSetter +
                 ", generateToString=" + generateToString +
+                ", filedTypeConvertMap=" + filedTypeConvertMap +
+                ", convertArrayToList=" + convertArrayToList +
                 '}';
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Jenly Yu
+ * Copyright (C) 2020 Jenly Yu, https://github.com/jenly1314/JavaFieldGenerator
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

@@ -22,7 +22,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.*;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

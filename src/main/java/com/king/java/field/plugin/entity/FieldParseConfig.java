@@ -18,7 +18,6 @@ package com.king.java.field.plugin.entity;
 import com.king.java.field.plugin.dialog.GenerateFieldDialog;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -112,15 +111,20 @@ public class FieldParseConfig {
 
     @NotNull
     public Map<String, String> getFiledTypeConvertMap() {
-        if(filedTypeConvertMap == null){
-            filedTypeConvertMap = new LinkedHashMap<>(16);
-            filedTypeConvertMap.put("varchar", "String");
-            filedTypeConvertMap.put("tinytext", "String");
-            filedTypeConvertMap.put("text", "String");
-            filedTypeConvertMap.put("string", "String");
-            filedTypeConvertMap.put("bool", "boolean");
-            filedTypeConvertMap.put("integer", "Integer");
+        if (filedTypeConvertMap == null) {
+            filedTypeConvertMap = createFiledTypeConvertMap();
         }
+        return filedTypeConvertMap;
+    }
+
+    private Map<String, String> createFiledTypeConvertMap(){
+        Map<String, String> filedTypeConvertMap = new LinkedHashMap<>(16);
+        filedTypeConvertMap.put("varchar", "String");
+        filedTypeConvertMap.put("tinytext", "String");
+        filedTypeConvertMap.put("text", "String");
+        filedTypeConvertMap.put("string", "String");
+        filedTypeConvertMap.put("bool", "boolean");
+        filedTypeConvertMap.put("integer", "Integer");
         return filedTypeConvertMap;
     }
 

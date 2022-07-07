@@ -16,7 +16,6 @@
 package com.king.java.field.plugin.dialog;
 
 import com.intellij.openapi.ui.Messages;
-import com.intellij.openapi.wm.WindowManager;
 import com.king.java.field.plugin.component.ConfigComponent;
 import com.king.java.field.plugin.entity.FieldParseConfig;
 import org.apache.commons.lang.StringUtils;

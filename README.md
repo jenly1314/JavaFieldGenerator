@@ -23,7 +23,7 @@ JavaFieldGenerator 是一个可以根据字符串内容快速生成Java字段的
 - Using IDE built-in plugin system on MacOs:
   - <kbd>Preferences</kbd> > <kbd>Settings</kbd> > <kbd>Plugins</kbd> > <kbd>Browse repositories...</kbd> > <kbd>Search for "JavaFieldGenerator"</kbd> > <kbd>Install Plugin</kbd>
 - Manually:
-  - Download the [latest release](https://raw.githubusercontent.com/jenly1314/JavaFieldGenerator/master/release/JavaFieldGenerator-1.0.0.zip) and install it manually using <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Install plugin from disk...</kbd>
+  - Download the [latest release](https://raw.githubusercontent.com/jenly1314/JavaFieldGenerator/master/release/JavaFieldGenerator-1.1.0.zip) and install it manually using <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Install plugin from disk...</kbd>
   - [Get from JetBrains Marketplace](https://plugins.jetbrains.com/plugin/19258)
   
 Restart IDE.
@@ -33,6 +33,24 @@ Restart IDE.
 * 快速生成 **Getter** 和 **Setter** 方法
 * 快速生成 **toString** 方法
 
+## 字段类型配置说明
+
+当文档上定义的字段类型并非Java的基本类型或对象时，这时就需要用到字段类型转换配置，通过配置来动态将文档上定义的类型转换成我们期望的Java字段类型。
+
+在 **Java Field** 的 **Setting** 中提供了字段类型配置，你可以根据自己的需要来修改配置。
+
+* 配置格式：**{未转换前的字段类型}** = **{转换成Java后的字段类型}**
+
+* 配置示例如下：
+```
+varchar=String
+tinytext=String
+text=String
+string=String
+bool=boolean
+integer=Integer
+
+```
 
 ## 示例
 ### 根据输入的内容生成Java字段
@@ -46,6 +64,10 @@ Restart IDE.
 #### [WordPOI](https://github.com/jenly1314/WordPOI) 一个将Word接口文档转换成JavaBean的工具库。
 
 ## 更新说明
+
+#### v1.1.0 ：2022-7-8
+*  支持字段类型转换配置
+
 #### v1.0.0 ：2022-5-30
 *  JavaFieldGenerator初始版本
 

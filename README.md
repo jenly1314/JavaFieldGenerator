@@ -2,8 +2,9 @@
 
 ![Logo](logo.png)
 
-[![Download](https://img.shields.io/badge/download-plugin-blue.svg)](https://raw.githubusercontent.com/jenly1314/JavaFieldGenerator/master/release/JavaFieldGenerator-1.1.0.zip)
-[![License](https://img.shields.io/badge/license-Apche%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Download](https://img.shields.io/badge/download-plugin-brightgreen?logo=github)](https://raw.githubusercontent.com/jenly1314/JavaFieldGenerator/master/release/JavaFieldGenerator-1.1.0.zip)
+[![License](https://img.shields.io/github/license/jenly1314/JavaFieldGenerator?logo=open-source-initiative)](https://opensource.org/licenses/apache-2-0)
+
 
 <!-- Plugin description -->
 JavaFieldGenerator This is a plugin you can generate Java field from String.
@@ -61,9 +62,9 @@ integer=Integer
 
 ## 相关推荐
 
-#### [WordPOI](https://github.com/jenly1314/WordPOI) 一个将Word接口文档转换成JavaBean的工具库。
+- [WordPOI](https://github.com/jenly1314/WordPOI) 一个将Word接口文档转换成JavaBean的工具库。
 
-## 更新说明
+## 版本日志
 
 #### v1.1.0 ：2022-7-8
 *  支持字段类型转换配置
@@ -71,29 +72,6 @@ integer=Integer
 #### v1.0.0 ：2022-5-30
 *  JavaFieldGenerator初始版本
 
+---
 
-## 赞赏
-如果您喜欢JavaFieldGenerator，或感觉JavaFieldGenerator帮助到了您，可以点右上角“Star”支持一下，您的支持就是我的动力，谢谢 :smiley:
-<p>您也可以扫描下面的二维码，请作者喝杯咖啡 :coffee:
-
-<div>
-   <img src="https://jenly1314.github.io/image/page/rewardcode.png">
-</div>
-
-## 关于我
-
-| 我的博客                                                                                | GitHub                                                                                  | Gitee                                                                                  | CSDN                                                                                 | 博客园                                                                            |
-|:------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------|
-| <a title="我的博客" href="https://jenly1314.github.io" target="_blank">Jenly's Blog</a> | <a title="GitHub开源项目" href="https://github.com/jenly1314" target="_blank">jenly1314</a> | <a title="Gitee开源项目" href="https://gitee.com/jenly1314" target="_blank">jenly1314</a>  | <a title="CSDN博客" href="http://blog.csdn.net/jenly121" target="_blank">jenly121</a>  | <a title="博客园" href="https://www.cnblogs.com/jenly" target="_blank">jenly</a>  |
-
-## 联系我
-
-| 微信公众号        | Gmail邮箱                                                                          | QQ邮箱                                                                              | QQ群                                                                                                                       | QQ群                                                                                                                       |
-|:-------------|:---------------------------------------------------------------------------------|:----------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------|
-| [Jenly666](http://weixin.qq.com/r/wzpWTuPEQL4-ract92-R) | <a title="给我发邮件" href="mailto:jenly1314@gmail.com" target="_blank">jenly1314</a> | <a title="给我发邮件" href="mailto:jenly1314@vip.qq.com" target="_blank">jenly1314</a> | <a title="点击加入QQ群" href="https://qm.qq.com/cgi-bin/qm/qr?k=6_RukjAhwjAdDHEk2G7nph-o8fBFFzZz" target="_blank">20867961</a> | <a title="点击加入QQ群" href="https://qm.qq.com/cgi-bin/qm/qr?k=Z9pobM8bzAW7tM_8xC31W8IcbIl0A-zT" target="_blank">64020761</a> |
-
-<div>
-   <img src="https://jenly1314.github.io/image/page/footer.png">
-</div>
-
-
+![footer](https://jenly1314.github.io/page/footer.svg)

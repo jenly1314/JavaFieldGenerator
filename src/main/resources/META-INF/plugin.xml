@@ -1,25 +1,32 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.king.java.field.plugin</id>
-    <name>JavaFieldGenerator</name>
+    <id>com.king.jvm.field.generator</id>
+    <name>JvmFieldGenerator</name>
     <vendor email="jenly1314@gmail.com" url="https://www.github.com/jenly1314">Jenly</vendor>
-    <description>JavaFieldGenerator This is a plugin you can generate Java field from String.</description>
+    <description>JvmFieldGenerator generates Java/Kotlin class fields from plain-text definitions.</description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.java</depends>
+    <depends>org.jetbrains.kotlin</depends>
 
 
     <actions>
-        <action id="GenerateJavaField" class="com.king.java.field.plugin.action.GenerateFieldAction" text="Java Field" description="Generate Java Field">
+        <action id="com.king.jvm.field.generator.action.GenerateField" class="com.king.jvm.field.generator.action.GenerateFieldAction" text="Generate Fields" description="Generate Java/Kotlin fields from text definitions">
             <add-to-group group-id="GenerateGroup" />
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="first" />
         </action>
-        <action id="QuickGenerateJavaField" icon="/icons/ic_logo.png" class="com.king.java.field.plugin.action.QuickGenerateFieldAction" text="Quick Generate Java Field" description="Quick Generate Java Field">
-            <add-to-group group-id="EditorPopupMenu" anchor="last" />
+        <action id="com.king.jvm.field.generator.action.QuickGenerateField" icon="/icons/ic_logo.png" class="com.king.jvm.field.generator.action.QuickGenerateFieldAction" text="Quick Generate Fields" description="Generate Java/Kotlin fields from copied text">
+            <add-to-group group-id="EditorPopupMenu" anchor="first" />
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift G" />
         </action>
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.king.java.field.plugin.component.ConfigComponent"/>
+        <applicationService serviceImplementation="com.king.jvm.field.generator.component.ConfigComponent"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <supportsKotlinPluginMode supportsK1="true" supportsK2="true"/>
     </extensions>
 </idea-plugin>

@@ -1,4 +1,5 @@
 .gradle
+.gradle-user-home
 .idea
-.qodana
+.run
 build

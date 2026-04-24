@@ -50,12 +50,13 @@ Restart IDE.
 #### v2.0.0 ：待发布
 - 项目更名为 **JvmFieldGenerator**
 - 项目核心部分已重构，现在支持 Java/Kotlin 类字段生成
+- 优化交互细节
 
 #### v1.1.0 ：2022-7-8
 - 支持字段类型转换配置
 
 #### v1.0.0 ：2022-5-30
-- 初始版本
+- JavaFieldGenerator初始版本
 
 ---
 

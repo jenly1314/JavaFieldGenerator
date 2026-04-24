@@ -10,11 +10,10 @@
     <depends>com.intellij.modules.java</depends>
     <depends>org.jetbrains.kotlin</depends>
 
-
     <actions>
-        <action id="com.king.jvm.field.generator.action.GenerateField" class="com.king.jvm.field.generator.action.GenerateFieldAction" text="Generate Fields" description="Generate Java/Kotlin fields from text definitions">
-            <add-to-group group-id="GenerateGroup" />
-            <add-to-group group-id="ProjectViewPopupMenu" anchor="first" />
+        <action id="com.king.jvm.field.generator.action.GenerateField" icon="/icons/ic_logo.png" class="com.king.jvm.field.generator.action.GenerateFieldAction" text="Generate Fields" description="Generate Java/Kotlin fields from text definitions">
+            <add-to-group group-id="GenerateGroup" anchor="first" />
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last" />
         </action>
         <action id="com.king.jvm.field.generator.action.QuickGenerateField" icon="/icons/ic_logo.png" class="com.king.jvm.field.generator.action.QuickGenerateFieldAction" text="Quick Generate Fields" description="Generate Java/Kotlin fields from copied text">
             <add-to-group group-id="EditorPopupMenu" anchor="first" />

@@ -10,6 +10,7 @@ JvmFieldGenerator generates Java/Kotlin class fields from plain-text definitions
 <!-- Plugin description end -->
 
 JvmFieldGenerator is a plugin for quickly generating Java/Kotlin class fields from text definitions.
+
 JvmFieldGenerator 是一个可以根据字符串内容快速生成 Java/Kotlin 类字段的插件。
 
 > 在日常开发的过程中，常常会根据接口文档去定义一些JavaBean，而接口文档的请求和响应相关信息，在大部分情况下都是使用表格的形式列出相关的字段信息，每次无脑式的对着文档的字段信息去定义对应的JavaBean就略显无聊。

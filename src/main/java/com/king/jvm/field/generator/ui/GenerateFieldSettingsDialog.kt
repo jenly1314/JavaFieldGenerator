@@ -136,7 +136,7 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
 
     init {
         initUiComponents()
-        title = "JvmFieldGenerator - Field Generation Settings"
+        title = "JvmFieldGenerator - Settings"
         init()
         applyPrimaryButtonStyle()
 

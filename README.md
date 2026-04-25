@@ -23,7 +23,7 @@ JvmFieldGenerator 是一个可以根据字符串内容快速生成 Java/Kotlin �
   - <kbd>Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "JvmFieldGenerator"</kbd> > <kbd>Install</kbd>
 - Manual installation:
   - Download the [latest release](https://github.com/jenly1314/JvmFieldGenerator/releases/latest), then install it via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Install plugin from disk...</kbd>
-  - [Get from JetBrains Marketplace](https://plugins.jetbrains.com/plugin/19258)
+  - [Get from JetBrains Marketplace](https://plugins.jetbrains.com/plugin/31452)
   
 Restart IDE.
 
@@ -34,12 +34,35 @@ Restart IDE.
 
 ## Usage / 使用
 
+- `Generate Fields`: right-click a class/package and generate fields from custom input.
+- `Generate Fields Quickly`: use copied text directly from the editor popup menu.
+- Shortcut for quick action: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>G</kbd>.
+
+- `Generate Fields`：在类或包上右键，通过自定义输入生成字段。
+- `Generate Fields Quickly`：在编辑器右键菜单中直接基于剪贴板内容生成字段。
+- 快捷生成快捷键：<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>G</kbd>。
+
+#### Text format / 文本格式
+
+- Supports table-like text copied from API docs, Excel, or online documents.
+- Use a single Tab character as the column separator.
+
+- 支持从接口文档、Excel 或在线文档复制的表格形式文本。
+- 列与列之间请使用单个 Tab 字符分隔。
+
+```text
+fieldName	type
+id	String
+name	String
+age	Int
+```
+
 ### Examples / 示例
 #### Generate fields from input text / 根据输入内容生成字段
-![Image](art/generate-java-field.gif)
+![Image](art/generate_fields.gif)
 
-#### Quickly generate fields from copied text / 根据复制内容快速生成字段
-![Image](art/quick-generate-java-field.gif)
+#### Generate fields quickly from copied text / 根据复制内容快速生成字段
+![Image](art/generate_fields_quickly.gif)
 
 ## 相关推荐
 
@@ -47,7 +70,7 @@ Restart IDE.
 
 ## 版本日志
 
-#### v2.0.0 ：待发布
+#### v2.0.0 ：2026-4-25
 - 项目更名为 **JvmFieldGenerator**
 - 项目核心部分已重构，现在支持 Java/Kotlin 类字段生成
 - 优化交互细节

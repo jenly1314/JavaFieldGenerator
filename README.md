@@ -52,10 +52,10 @@ Restart IDE.
 - 列与列之间请使用单个 Tab 字符分隔。
 
 ```text
-fieldName	type
-id	String
-name	String
-age	Int
+fieldName   type
+id  String
+name    String
+age Int
 ```
 
 ### Examples / 示例

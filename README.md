@@ -3,15 +3,14 @@
 ![Logo](logo.png)
 
 [![Download](https://img.shields.io/badge/download-plugin-brightgreen?logo=github)](https://github.com/jenly1314/JvmFieldGenerator/releases/latest)
+[![CI](https://img.shields.io/github/actions/workflow/status/jenly1314/JvmFieldGenerator/build.yml?logo=github)](https://github.com/jenly1314/JvmFieldGenerator/actions/workflows/build.yml)
 [![License](https://img.shields.io/github/license/jenly1314/JvmFieldGenerator?logo=open-source-initiative)](https://opensource.org/licenses/apache-2-0)
 
 <!-- Plugin description -->
-JvmFieldGenerator generates Java/Kotlin class fields from plain-text definitions.
-<!-- Plugin description end -->
-
 JvmFieldGenerator is a plugin for quickly generating Java/Kotlin class fields from text definitions.
 
 JvmFieldGenerator 是一个可以根据字符串内容快速生成 Java/Kotlin 类字段的插件。
+<!-- Plugin description end -->
 
 > 在日常开发的过程中，常常会根据接口文档去定义一些JavaBean，而接口文档的请求和响应相关信息，在大部分情况下都是使用表格的形式列出相关的字段信息，每次无脑式的对着文档的字段信息去定义对应的JavaBean就略显无聊。
 > 如果这时我们使用了 **JvmFieldGenerator** 插件，就可以快速根据定义的字段信息来生成 Java/Kotlin 对象中的字段信息。
@@ -25,7 +24,7 @@ JvmFieldGenerator 是一个可以根据字符串内容快速生成 Java/Kotlin �
 - Manual installation:
   - Download the [latest release](https://github.com/jenly1314/JvmFieldGenerator/releases/latest), then install it via <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Install plugin from disk...</kbd>
   - [Get from JetBrains Marketplace](https://plugins.jetbrains.com/plugin/31452)
-  
+
 Restart IDE.
 
 ## Features / 主要功能

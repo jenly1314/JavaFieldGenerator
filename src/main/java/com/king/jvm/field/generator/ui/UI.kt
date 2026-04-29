@@ -10,14 +10,13 @@ package com.king.jvm.field.generator.ui
 object UI {
 
     object Spacing {
-        const val DIALOG_CONTENT_GAP = 10
-        const val DIALOG_HORIZONTAL_PADDING = 10
-        const val DIALOG_TOP_PADDING = 10
-        const val DIALOG_COMPACT_TOP_PADDING = 5
+        const val DIALOG_CONTENT_GAP = 8
+        const val DIALOG_HORIZONTAL_PADDING = 0
+        const val DIALOG_TOP_PADDING = 0
         const val DIALOG_BOTTOM_PADDING = 0
 
         const val CONTENT_HORIZONTAL_PADDING = 12
-        const val CONTENT_TOP_PADDING = 24
+        const val CONTENT_TOP_PADDING = 12
         const val CONTENT_BOTTOM_PADDING = 12
 
         const val INPUT_HORIZONTAL_PADDING = 8

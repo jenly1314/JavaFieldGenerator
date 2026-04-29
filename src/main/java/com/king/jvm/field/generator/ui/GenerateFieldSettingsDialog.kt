@@ -27,7 +27,6 @@ import com.king.jvm.field.generator.model.KotlinPropertyKeyword
 import com.king.jvm.field.generator.model.Modifier
 import com.king.jvm.field.generator.model.NullabilityMode
 import com.king.jvm.field.generator.model.TargetLanguage
-import org.apache.commons.lang.StringUtils
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Component
@@ -1210,7 +1209,7 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
         val convertMap = LinkedHashMap<String, String?>()
         val lines = taTypeMapping.text.split("\n")
         for (line in lines) {
-            if (StringUtils.isBlank(line)) continue
+            if (line.isBlank()) continue
             val kv = line.split("=", limit = 2)
             if (kv.size >= 2) {
                 convertMap[kv[0].trim()] = kv[1].trim()

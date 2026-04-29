@@ -22,7 +22,6 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.util.ui.JBUI
 import com.king.jvm.field.generator.component.ConfigComponent
 import com.king.jvm.field.generator.model.FieldParseConfig
-import org.apache.commons.lang.StringUtils
 import java.awt.BorderLayout
 import java.awt.Cursor
 import java.awt.Dimension
@@ -80,11 +79,11 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
         btnGenerate.addActionListener {
             val className = tfClassName.text
             val inputText = jTextAreaInput.text
-            if (StringUtils.isBlank(className)) {
+            if (className.isNullOrBlank()) {
                 Messages.showMessageDialog("Class name cannot be empty.", "Error", Messages.getInformationIcon())
                 return@addActionListener
             }
-            if (StringUtils.isBlank(inputText)) {
+            if (inputText.isNullOrBlank()) {
                 Messages.showMessageDialog("Input text cannot be empty.", "Error", Messages.getInformationIcon())
                 return@addActionListener
             }
@@ -117,7 +116,7 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
         val container = JPanel(BorderLayout(0, JBUI.scale(UI.Spacing.DIALOG_CONTENT_GAP)))
         container.preferredSize = DIALOG_SIZE
         container.border = JBUI.Borders.empty(
-            UI.Spacing.DIALOG_COMPACT_TOP_PADDING,
+            UI.Spacing.DIALOG_TOP_PADDING,
             UI.Spacing.DIALOG_HORIZONTAL_PADDING,
             UI.Spacing.DIALOG_BOTTOM_PADDING,
             UI.Spacing.DIALOG_HORIZONTAL_PADDING
@@ -199,7 +198,7 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
         label.font = label.font.deriveFont(label.font.size2D + UI.FontSize.CONTENT_TEXT)
         classNamePanel.add(label, BorderLayout.WEST)
 
-        tfClassName = JTextField(StringUtils.defaultString(initialClassName))
+        tfClassName = JTextField(initialClassName.orEmpty())
         tfClassName.font = tfClassName.font.deriveFont(tfClassName.font.size2D + UI.FontSize.INPUT_TEXT)
         tfClassName.margin = JBUI.insets(
             UI.Spacing.INPUT_VERTICAL_PADDING,
@@ -253,10 +252,12 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
     }
 
     private fun updateGenerateButtonState() {
-        btnGenerate.isEnabled =
-            StringUtils.isNotBlank(tfClassName.text) &&
-                StringUtils.isNotBlank(jTextAreaInput.text) &&
-                getInputValidationError() == null
+        btnGenerate.isEnabled = !(
+            tfClassName.text.isNullOrBlank() ||
+                jTextAreaInput.text.isNullOrBlank() ||
+                getInputValidationError() != null
+            )
+
     }
 
     private fun getInputValidationError(): String? {
@@ -265,7 +266,7 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
         }
         val inputText = jTextAreaInput.text
         for (line in inputText.split(Regex("\\r?\\n"))) {
-            if (StringUtils.isBlank(line)) {
+            if (line.isBlank()) {
                 continue
             }
             if (!INPUT_VALIDATION_PATTERN.matcher(line).matches()) {

@@ -8,6 +8,7 @@ import com.intellij.openapi.editor.event.CaretEvent
 import com.intellij.openapi.editor.event.CaretListener
 import com.intellij.openapi.editor.event.VisibleAreaListener
 import com.intellij.openapi.editor.ex.EditorEx
+import com.intellij.openapi.util.Disposer
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension
@@ -69,6 +70,7 @@ object LineNumberTextArea {
         private var syncingFromSource = false
         private var syncingFromEditor = false
         private var disposed = false
+        private val editorListenerDisposable = Disposer.newDisposable("LineNumberTextArea.EditorListener")
         private val lineNumberGutter = LineNumberGutter()
         private val visibleAreaListener = VisibleAreaListener {
             lineNumberGutter.repaint()
@@ -100,7 +102,7 @@ object LineNumberTextArea {
         init {
             configureEditor()
             attachSourceDocument(source.document)
-            editorDocument.addDocumentListener(editorListener)
+            editorDocument.addDocumentListener(editorListener, editorListenerDisposable)
             editor.scrollingModel.addVisibleAreaListener(visibleAreaListener)
             editor.caretModel.addCaretListener(caretListener)
             source.addPropertyChangeListener(this)
@@ -125,7 +127,7 @@ object LineNumberTextArea {
             disposed = true
             source.removePropertyChangeListener(this)
             sourceDocument?.removeDocumentListener(sourceListener)
-            editorDocument.removeDocumentListener(editorListener)
+            Disposer.dispose(editorListenerDisposable)
             editor.scrollingModel.removeVisibleAreaListener(visibleAreaListener)
             editor.caretModel.removeCaretListener(caretListener)
             EditorFactory.getInstance().releaseEditor(editor)

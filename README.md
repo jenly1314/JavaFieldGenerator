@@ -15,8 +15,8 @@ JvmFieldGenerator 是一个可以根据字符串内容快速生成 Java/Kotlin �
 > 在日常开发的过程中，常常会根据接口文档去定义一些JavaBean，而接口文档的请求和响应相关信息，在大部分情况下都是使用表格的形式列出相关的字段信息，每次无脑式的对着文档的字段信息去定义对应的JavaBean就略显无聊。
 > 如果这时我们使用了 **JvmFieldGenerator** 插件，就可以快速根据定义的字段信息来生成 Java/Kotlin 对象中的字段信息。
 
-
 ## Installation / 安装
+
 - Using the IDE built-in plugin system on Windows:
   - <kbd>File</kbd> > <kbd>Settings</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "JvmFieldGenerator"</kbd> > <kbd>Install</kbd>
 - Using the IDE built-in plugin system on macOS:
@@ -28,9 +28,10 @@ JvmFieldGenerator 是一个可以根据字符串内容快速生成 Java/Kotlin �
 Restart IDE.
 
 ## Features / 主要功能
-* 快速生成 **Java/Kotlin** 类字段
-* 支持 **Java/Kotlin** 自定义配置
-* 支持 **Gson/Moshi/Jackson/FastJson/Kotlin Serialization** 等各种注解配置
+
+- 快速生成 **Java/Kotlin** 类字段
+- 支持 **Java/Kotlin** 自定义配置
+- 支持 **Gson/Moshi/Jackson/FastJson/Kotlin Serialization** 等各种注解配置
 
 ## Usage / 使用
 
@@ -45,16 +46,43 @@ Restart IDE.
 #### Text format / 文本格式
 
 - Supports table-like text copied from API docs, Excel, or online documents.
-- Use a single Tab character as the column separator.
+- Supports DSV (Delimiter-Separated Values): Tab (TSV) / Comma (CSV) / Semicolon (SSV) / Pipe (PSV).
+- Choose separator via `Value Separator` (default: Tab).
 
 - 支持从接口文档、Excel 或在线文档复制的表格形式文本。
-- 列与列之间请使用单个 Tab 字符分隔。
+- 支持 DSV（分隔符分隔值）格式：Tab (TSV) / Comma (CSV) / Semicolon (SSV) / Pipe (PSV)。
+- 可通过 `Value Separator` 选择分隔符（默认：Tab）。
 
-```text
-fieldName   type
-id  String
-name    String
-age Int
+**TSV Example**
+
+```tsv
+id	String
+name	String
+age	Int
+```
+
+**CSV Example**
+
+```csv
+id,String
+name,String
+age,Int
+```
+
+**SSV Example**
+
+```ssv
+id;String
+name;String
+age;Int
+```
+
+**PSV Example**
+
+```psv
+id|String
+name|String
+age|Int
 ```
 
 ### Examples / 示例
@@ -70,10 +98,12 @@ age Int
 
 ## 版本日志
 
-#### v2.1.0 ：2026-5-5
-- UI微调
-- 优化细节
-
+#### v2.2.0 ：2026-5-10
+- 新增 DSV 多格式输入支持：Tab (TSV) / Comma (CSV) / Semicolon (SSV) / Pipe (PSV)
+- 主对话框新增 `Value Separator` 下拉选择分隔符
+- 输入校验按所选分隔符动态匹配正则
+- 字段解析按所选分隔符拆分（不再固定 Tab）
+- 优化交互与界面细节
 
 #### [查看更多版本日志](CHANGELOG.md)
 

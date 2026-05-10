@@ -15,7 +15,7 @@ object UI {
         const val DIALOG_TOP_PADDING = 0
         const val DIALOG_BOTTOM_PADDING = 0
 
-        const val CONTENT_HORIZONTAL_PADDING = 12
+        const val CONTENT_HORIZONTAL_PADDING = 8
         const val CONTENT_TOP_PADDING = 12
         const val CONTENT_BOTTOM_PADDING = 12
 
@@ -62,6 +62,7 @@ object UI {
         const val SPINNER_WIDTH = 70
         const val LABEL_WIDTH = 156
         const val NULLABILITY_KEYWORDS_WIDTH = 110
+        const val VALUE_SEPARATOR_WIDTH = 150
     }
 
     object FontSize {
@@ -72,8 +73,5 @@ object UI {
         const val INPUT_TEXT = 0f
     }
 
-    object Color {
-        val BORDER_FALLBACK: java.awt.Color = java.awt.Color(0xD9, 0xD9, 0xD9)
-    }
 }
 

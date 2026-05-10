@@ -81,7 +81,7 @@ class CodeGeneratorImpl : CodeGenerator {
         }
         val orderedNewFieldProperties = orderNewFieldProperties(targetFieldProperties, fieldParseConfig.fieldSortStyle)
         val orderedMethodFieldProperties = orderNewFieldProperties(uniqueFieldProperties, fieldParseConfig.fieldSortStyle)
-        
+
         val importClass = getAnnotationImportClass(fieldParseConfig)
         if (importClass.isNotEmpty()) {
             addJavaImportIfMissing(project, psiClass, importClass)
@@ -249,7 +249,7 @@ class CodeGeneratorImpl : CodeGenerator {
         nullableDefaultNull: Boolean
     ): String {
         val finalType = getKotlinPropertyType(fieldProperty)
-        
+
         val declaration = buildString {
             if (annotation.isNotEmpty()) {
                 append(annotation).append("\n")
@@ -334,13 +334,14 @@ class CodeGeneratorImpl : CodeGenerator {
         val fieldPropertyList = mutableListOf<FieldProperty>()
         var currentFieldProperty: FieldProperty? = null
         val fieldTypeConvertMap: Map<String, String?> = fieldParseConfig.fieldTypeConvertMap ?: emptyMap()
+        val valueSeparator = fieldParseConfig.valueSeparator.symbol
 
         text.split(Regex("\\r?\\n")).forEach { line ->
             if (line.isBlank() && currentFieldProperty == null) {
                 return@forEach
             }
 
-            val stringArr = line.split("\t")
+            val stringArr = line.split(valueSeparator)
             if (stringArr.size == 1) {
                 if (fieldParseConfig.fieldCommentColumn >= 0 && currentFieldProperty != null && stringArr[0].isNotBlank()) {
                     currentFieldProperty?.appendCommentLine(stringArr[0])

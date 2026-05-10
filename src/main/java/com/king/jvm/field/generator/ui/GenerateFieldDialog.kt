@@ -22,6 +22,7 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.util.ui.JBUI
 import com.king.jvm.field.generator.component.ConfigComponent
 import com.king.jvm.field.generator.model.FieldParseConfig
+import com.king.jvm.field.generator.model.ValueSeparator
 import java.awt.BorderLayout
 import java.awt.Cursor
 import java.awt.Dimension
@@ -32,10 +33,10 @@ import javax.swing.Box
 import javax.swing.BoxLayout
 import javax.swing.JButton
 import javax.swing.JCheckBox
+import javax.swing.JComboBox
 import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
-import javax.swing.JScrollPane
 import javax.swing.JTextArea
 import javax.swing.JTextField
 import javax.swing.SwingConstants
@@ -54,6 +55,7 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
     private val panel: JPanel
     private lateinit var jTextAreaInput: JTextArea
     private lateinit var tfClassName: JTextField
+    private lateinit var cbValueSeparator: JComboBox<ValueSeparator>
     private lateinit var chkRegexValidation: JCheckBox
     private lateinit var btnCancel: JButton
     private lateinit var btnGenerate: JButton
@@ -74,6 +76,13 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
     override fun createCenterPanel(): JComponent = panel
 
     override fun createActions(): Array<javax.swing.Action> = emptyArray()
+
+    override fun dispose() {
+        if (this::jTextAreaInput.isInitialized) {
+            LineNumberTextArea.dispose(jTextAreaInput)
+        }
+        super.dispose()
+    }
 
     private fun setupActions() {
         btnGenerate.addActionListener {
@@ -104,6 +113,9 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
                 val settingsDialog = GenerateFieldSettingsDialog()
                 settingsDialog.show()
                 fieldParseConfig = ConfigComponent.getInstance().resolveFieldParseConfig()
+                if (this::cbValueSeparator.isInitialized) {
+                    cbValueSeparator.selectedItem = fieldParseConfig.valueSeparator
+                }
                 updateGenerateButtonState()
             } catch (ex: Exception) {
                 LOG.error("Open settings dialog failed", ex)
@@ -127,7 +139,7 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
         jTextAreaInput = JTextArea().apply {
             font = font.deriveFont(font.size2D + UI.FontSize.INPUT_TEXT)
         }
-        val scrollPane: JScrollPane = LineNumberTextArea.wrap(jTextAreaInput)
+        val scrollPane = LineNumberTextArea.wrap(jTextAreaInput)
         scrollPane.preferredSize = JBUI.size(UI.Size.MAIN_INPUT_WIDTH, UI.Size.MAIN_INPUT_HEIGHT)
 
         val centerPanel = JPanel(BorderLayout(0, JBUI.scale(UI.Spacing.DIALOG_CONTENT_GAP)))
@@ -179,10 +191,35 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
         validationPanel.layout = BoxLayout(validationPanel, BoxLayout.Y_AXIS)
         validationPanel.alignmentX = JComponent.LEFT_ALIGNMENT
 
+        val optionsRow = JPanel()
+        optionsRow.isOpaque = false
+        optionsRow.layout = BoxLayout(optionsRow, BoxLayout.X_AXIS)
+        optionsRow.alignmentX = JComponent.LEFT_ALIGNMENT
+
+        val separatorLabel = JLabel("Value Separator")
+        separatorLabel.font = separatorLabel.font.deriveFont(separatorLabel.font.size2D + UI.FontSize.CONTENT_TEXT)
+        separatorLabel.alignmentY = JComponent.CENTER_ALIGNMENT
+        optionsRow.add(separatorLabel)
+        optionsRow.add(Box.createHorizontalStrut(JBUI.scale(UI.Spacing.ROW_GAP_COMPACT)))
+
+        cbValueSeparator = JComboBox(ValueSeparator.values())
+        cbValueSeparator.selectedItem = fieldParseConfig.valueSeparator
+        cbValueSeparator.toolTipText = "Value Separator"
+        cbValueSeparator.alignmentY = JComponent.CENTER_ALIGNMENT
+        val comboSize = JBUI.size(UI.Size.VALUE_SEPARATOR_WIDTH, UI.Size.INPUT_HEIGHT)
+        cbValueSeparator.preferredSize = comboSize
+        cbValueSeparator.minimumSize = comboSize
+        cbValueSeparator.maximumSize = comboSize
+        optionsRow.add(cbValueSeparator)
+        optionsRow.add(Box.createHorizontalStrut(JBUI.scale(UI.Spacing.ROW_GAP)))
+
         chkRegexValidation = JCheckBox("Validate input with regex")
         chkRegexValidation.isSelected = fieldParseConfig.isEnableInputRegexValidation
         chkRegexValidation.alignmentX = JComponent.LEFT_ALIGNMENT
-        validationPanel.add(chkRegexValidation)
+        chkRegexValidation.alignmentY = JComponent.CENTER_ALIGNMENT
+        optionsRow.add(chkRegexValidation)
+
+        validationPanel.add(optionsRow)
         return validationPanel
     }
 
@@ -245,6 +282,10 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
         }
         jTextAreaInput.document.addDocumentListener(listener)
         tfClassName.document.addDocumentListener(listener)
+        cbValueSeparator.addActionListener {
+            fieldParseConfig.valueSeparator = getSelectedValueSeparator()
+            updateGenerateButtonState()
+        }
         chkRegexValidation.addActionListener {
             fieldParseConfig.isEnableInputRegexValidation = chkRegexValidation.isSelected
             updateGenerateButtonState()
@@ -264,16 +305,22 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
         if (!chkRegexValidation.isSelected) {
             return null
         }
+        val valueSeparator = getSelectedValueSeparator()
+        val validationPattern = Pattern.compile(valueSeparator.validationRegex)
         val inputText = jTextAreaInput.text
         for (line in inputText.split(Regex("\\r?\\n"))) {
             if (line.isBlank()) {
                 continue
             }
-            if (!INPUT_VALIDATION_PATTERN.matcher(line).matches()) {
-                return "Input text does not match the validation regex: $INPUT_VALIDATION_REGEX"
+            if (!validationPattern.matcher(line).matches()) {
+                return "Input text does not match the ${valueSeparator} format regex: ${valueSeparator.validationRegex}"
             }
         }
         return null
+    }
+
+    private fun getSelectedValueSeparator(): ValueSeparator {
+        return cbValueSeparator.selectedItem as? ValueSeparator ?: ValueSeparator.TAB
     }
 
     private fun registerEscapeAction() {
@@ -299,8 +346,6 @@ class GenerateFieldDialog(initialClassName: String?) : DialogWrapper(true) {
     companion object {
         private val DIALOG_SIZE = JBUI.size(UI.Size.MAIN_DIALOG_WIDTH, UI.Size.MAIN_DIALOG_HEIGHT)
         private val LOG = Logger.getInstance(GenerateFieldDialog::class.java)
-        private const val INPUT_VALIDATION_REGEX = "[^\\t]+\\t[^\\t]*(?:\\t[^\\t]*)*"
-        private val INPUT_VALIDATION_PATTERN: Pattern = Pattern.compile(INPUT_VALIDATION_REGEX)
         private const val REPOSITORY_URL = "https://github.com/jenly1314/JvmFieldGenerator"
     }
 }

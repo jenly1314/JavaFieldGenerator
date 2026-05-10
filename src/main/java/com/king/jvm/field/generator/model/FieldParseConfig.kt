@@ -30,6 +30,7 @@ class FieldParseConfig {
     var fieldTypeColumn: Int = DEFAULT_FIELD_TYPE_COLUMN
     var fieldCommentColumn: Int = DEFAULT_FIELD_COMMENT_COLUMN
     var fieldNotNullColumn: Int = DEFAULT_FIELD_NOTNULL_COLUMN
+    var valueSeparator: ValueSeparator = ValueSeparator.TAB
     var fieldNameStyle: FieldNameStyle = FieldNameStyle.NONE
     var fieldSortStyle: FieldSortStyle = FieldSortStyle.DEFAULT
     var existingFieldPolicy: ExistingFieldPolicy = ExistingFieldPolicy.IGNORE_NEW
@@ -101,6 +102,7 @@ class FieldParseConfig {
     }
 
     fun ensureDefaults(): FieldParseConfig {
+        valueSeparator = valueOrDefault(valueSeparator, ValueSeparator.TAB)
         fieldNameStyle = valueOrDefault(fieldNameStyle, FieldNameStyle.NONE)
         fieldSortStyle = valueOrDefault(fieldSortStyle, FieldSortStyle.DEFAULT)
         existingFieldPolicy = valueOrDefault(existingFieldPolicy, ExistingFieldPolicy.IGNORE_NEW)

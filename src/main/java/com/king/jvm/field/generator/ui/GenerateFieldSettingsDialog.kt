@@ -32,7 +32,6 @@ import java.awt.Color
 import java.awt.Component
 import java.awt.Container
 import java.awt.Dimension
-import java.awt.FlowLayout
 import java.awt.Font
 import java.awt.Graphics
 import java.awt.GridBagConstraints
@@ -126,6 +125,7 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
     private lateinit var rbAnnoFastJson: JRadioButton
     private lateinit var rbAnnoKotlinSerial: JRadioButton
     private lateinit var rbAnnoCustom: JRadioButton
+    private lateinit var panelCustomAnnotationContainer: JPanel
     private lateinit var taAnnoImport: JTextArea
     private lateinit var taAnnoClassFormat: JTextArea
     private lateinit var taAnnoPropFormat: JTextArea
@@ -178,6 +178,11 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
 
     override fun createActions(): Array<javax.swing.Action> = emptyArray()
 
+    override fun dispose() {
+        disposeTextAreas()
+        super.dispose()
+    }
+
     private fun initUiComponents() {
         contentPane = JPanel(BorderLayout(0, JBUI.scale(UI.Spacing.DIALOG_CONTENT_GAP)))
         contentPane.border = JBUI.Borders.empty(
@@ -195,11 +200,17 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
 
         contentPane.add(tabbedPane, BorderLayout.CENTER)
 
-        val buttonPanel = JPanel(FlowLayout(FlowLayout.RIGHT, JBUI.scale(UI.Spacing.BUTTON_GAP), 0))
+        val buttonPanel = JPanel(BorderLayout())
+        buttonPanel.isOpaque = false
         buttonOK = javax.swing.JButton("OK")
         buttonCancel = javax.swing.JButton("Cancel")
-        buttonPanel.add(buttonOK)
-        buttonPanel.add(buttonCancel)
+        val actionButtonPanel = JPanel()
+        actionButtonPanel.isOpaque = false
+        actionButtonPanel.layout = BoxLayout(actionButtonPanel, BoxLayout.X_AXIS)
+        actionButtonPanel.add(buttonOK)
+        actionButtonPanel.add(Box.createHorizontalStrut(JBUI.scale(UI.Spacing.BUTTON_GAP)))
+        actionButtonPanel.add(buttonCancel)
+        buttonPanel.add(actionButtonPanel, BorderLayout.EAST)
         contentPane.add(buttonPanel, BorderLayout.SOUTH)
     }
 
@@ -518,7 +529,10 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
         section.add(radioPanel)
         section.border = JBUI.Borders.empty(0, 0, UI.Spacing.SECTION_VERTICAL_PADDING, 0)
         panel.add(section)
-        panel.add(jLine())
+
+        panelCustomAnnotationContainer = createStackPanel()
+        panelCustomAnnotationContainer.alignmentX = Component.LEFT_ALIGNMENT
+        panelCustomAnnotationContainer.add(jLine())
 
         val customSection = createSpacedGroupPanel("Custom Annotation Configuration")
         taAnnoImport = jTextAreaInput(2, "import kotlinx.serialization.*")
@@ -527,7 +541,8 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
         customSection.add(createTextAreaGroup("Import Statements", taAnnoImport, 2))
         customSection.add(createTextAreaGroup("Class Annotation Format", taAnnoClassFormat, 2))
         customSection.add(createTextAreaGroup("Property Annotation Format", taAnnoPropFormat, 2))
-        panel.add(customSection)
+        panelCustomAnnotationContainer.add(customSection)
+        panel.add(panelCustomAnnotationContainer)
         panel.add(Box.createVerticalGlue())
         return panel
     }
@@ -801,7 +816,11 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
 
     private fun resolveSeparatorColor(): Color = resolveHintTextColor()
 
-    private fun resolveHintTextColor(): Color = UIManager.getColor("Label.disabledForeground") ?: UI.Color.BORDER_FALLBACK
+    private fun resolveHintTextColor(): Color =
+        UIManager.getColor("Label.disabledForeground")
+            ?: UIManager.getColor("Label.foreground")
+            ?: UIManager.getColor("Separator.foreground")
+            ?: Color.GRAY
 
     private fun setFixedLabelSize(label: JLabel, width: Int, height: Int) {
         val size = JBUI.size(width, height)
@@ -937,7 +956,7 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
         return group
     }
 
-    private fun wrapTextAreaInput(textArea: JTextArea, rows: Int): JScrollPane {
+    private fun wrapTextAreaInput(textArea: JTextArea, rows: Int): JComponent {
         val scrollPane = LineNumberTextArea.wrap(textArea)
         val lineHeight = textArea.getFontMetrics(textArea.font).height
         val preferredHeight = maxOf(
@@ -945,12 +964,19 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
             JBUI.scale(UI.Size.TEXT_AREA_MIN_HEIGHT)
         )
         scrollPane.alignmentX = Component.LEFT_ALIGNMENT
-        scrollPane.viewport.minimumSize = Dimension(0, preferredHeight)
-        scrollPane.viewport.preferredSize = Dimension(0, preferredHeight)
         scrollPane.minimumSize = Dimension(0, preferredHeight)
         scrollPane.preferredSize = Dimension(0, preferredHeight)
         scrollPane.maximumSize = Dimension(Int.MAX_VALUE, preferredHeight + JBUI.scale(UI.Size.TEXT_AREA_MAX_EXTRA_HEIGHT))
         return scrollPane
+    }
+
+    private fun disposeTextAreas() {
+        listOfNotNull(
+            takeIf { this::taAnnoImport.isInitialized }?.let { taAnnoImport },
+            takeIf { this::taAnnoClassFormat.isInitialized }?.let { taAnnoClassFormat },
+            takeIf { this::taAnnoPropFormat.isInitialized }?.let { taAnnoPropFormat },
+            takeIf { this::taTypeMapping.isInitialized }?.let { taTypeMapping }
+        ).forEach(LineNumberTextArea::dispose)
     }
 
     private fun addGridComponent(panel: JPanel, comp: Component, gbc: GridBagConstraints, x: Int, y: Int) {
@@ -1137,9 +1163,9 @@ class GenerateFieldSettingsDialog : DialogWrapper(true) {
 
     private fun updateAnnotationState() {
         val isCustom = rbAnnoCustom.isSelected
-        taAnnoImport.isEnabled = isCustom
-        taAnnoClassFormat.isEnabled = isCustom
-        taAnnoPropFormat.isEnabled = isCustom
+        panelCustomAnnotationContainer.isVisible = isCustom
+        panelCustomAnnotationContainer.revalidate()
+        panelCustomAnnotationContainer.repaint()
     }
 
     private fun updateNullabilityState() {

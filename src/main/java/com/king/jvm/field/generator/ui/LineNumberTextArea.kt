@@ -12,6 +12,7 @@ import com.intellij.openapi.util.Disposer
 import java.awt.BorderLayout
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.Font
 import java.awt.FontMetrics
 import java.awt.Graphics
 import java.awt.Graphics2D
@@ -171,6 +172,7 @@ object LineNumberTextArea {
             editor.backgroundColor = editorBackground
             lineNumberGutter.background = editorBackground
             lineNumberGutter.foreground = resolveLineNumberForeground()
+            lineNumberGutter.font = resolveLineNumberFont()
             applyMinimumLineNumberGutterWidth()
             applyHint()
         }
@@ -179,8 +181,13 @@ object LineNumberTextArea {
             return editor.colorsScheme.defaultBackground
         }
 
+        private fun resolveLineNumberFont(): Font {
+            val editorFont = editor.contentComponent.font
+            return Font(Font.MONOSPACED, editorFont.style, editorFont.size)
+        }
+
         private fun applyMinimumLineNumberGutterWidth(minDigits: Int = MIN_LINE_NUMBER_DIGITS) {
-            val metrics = editor.contentComponent.getFontMetrics(editor.contentComponent.font)
+            val metrics = lineNumberGutter.getFontMetrics(lineNumberGutter.font)
             val digitWidth = maxOf(1, metrics.charWidth('0'))
             val lineCountDigits = maxOf(1, editorDocument.lineCount.toString().length)
             val digits = maxOf(minDigits, lineCountDigits)
@@ -273,14 +280,14 @@ object LineNumberTextArea {
                         return
                     }
 
-                    val metrics = editor.contentComponent.getFontMetrics(editor.contentComponent.font)
+                    val metrics = lineNumberGutter.getFontMetrics(lineNumberGutter.font)
                     val startLine = maxOf(0, visibleArea.y / lineHeight)
                     val endLine = minOf(lineCount - 1, (visibleArea.y + visibleArea.height) / lineHeight + 1)
                     val caretLine = editor.caretModel.logicalPosition.line
                     val defaultForeground = foreground
                     val caretForeground = resolveCaretLineNumberForeground(defaultForeground)
 
-                    g2.font = editor.contentComponent.font
+                    g2.font = lineNumberGutter.font
                     for (line in startLine..endLine) {
                         val lineNumber = (line + 1).toString()
                         val textWidth = metrics.stringWidth(lineNumber)

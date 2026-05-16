@@ -1,5 +1,8 @@
 ## 版本日志
 
+#### v2.2.1 ：2026-5-16
+- 优化输入框显示行号的对齐方式
+
 #### v2.2.0 ：2026-5-10
 - 新增 DSV 多格式输入支持：Tab (TSV) / Comma (CSV) / Semicolon (SSV) / Pipe (PSV)
 - 主对话框新增 `Value Separator` 下拉选择分隔符
